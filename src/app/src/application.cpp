@@ -2,27 +2,20 @@
 
 Application::Application()
 {
-    //create window on new thread
-    m_views.push_back(std::thread([]()
-    {
-        Window *window = new Window;
-        
-    }));
-    m_currentThreadId = std::this_thread::get_id();
+    m_window = new Window;
 }
 
 Application::~Application()
 {
-    //cleanup signal to threads that we want to exit
-    for(auto i : m_views)
-    {
-        i.join();
-    }
+    delete m_window;
 }
 
 void Application::run()
 {
-
+    while(!m_exit)
+    {
+        m_window->run();
+    }
 }
 
 void Application::processEvents()

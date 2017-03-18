@@ -1,5 +1,5 @@
 add_subdirectory("app")
-
+add_subdirectory("engine")
 set(SOURCES main.cpp)
 list(APPEND CMAKE_CXX_FLAGS "-pthread -std=c++14")
 add_executable (vulkan-deferred ${SOURCES})

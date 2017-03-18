@@ -13,7 +13,6 @@ public:
     void run();
     void processEvents();
 protected:
-    std::vector<std::thread> m_views;
-    std::thread::id m_currentThreadId;
+    Window *m_window;
     bool m_exit = false;
 };
