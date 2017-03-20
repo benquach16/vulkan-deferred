@@ -1,4 +1,5 @@
 include_directories("inc")
+include_directories("../engine/inc")
 set(HEADERS inc/window.h
 			inc/application.h)
 set(SOURCES src/window.cpp

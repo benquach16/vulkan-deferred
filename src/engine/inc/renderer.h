@@ -1,5 +1,7 @@
 #pragma once
 
+#include "vinterface.h"
+
 class Renderer
 {
 public:
@@ -7,5 +9,5 @@ public:
     ~Renderer();
     
 protected:
-    
+    VInterface m_interface;
 };
