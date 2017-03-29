@@ -1,6 +1,6 @@
 #pragma once
 #include <GLFW/glfw3.h>
-#include "renderer.h"
+#include "engine/inc/renderer.h"
 
 class Window
 {

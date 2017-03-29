@@ -1,4 +1,4 @@
-#include "vinterface.h"
+#include "vulkandriver.h"
 #include <iostream>
 
 VInterface::VInterface() : m_pInstance(0), m_iDeviceCount(0)
