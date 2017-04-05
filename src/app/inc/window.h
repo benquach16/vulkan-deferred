@@ -11,4 +11,5 @@ public:
     void run();
 protected:
     GLFWwindow* m_window;
+    Renderer *m_renderer;
 };

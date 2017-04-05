@@ -3,11 +3,11 @@
 #include <vulkan/vulkan.h>
 #include <vector>
 
-class VInterface
+class VulkanDriver
 {
 public:
-    VInterface();
-    ~VInterface();
+    VulkanDriver();
+    ~VulkanDriver();
     
     void init();
     void getPhysicalDevices();

@@ -1,18 +1,18 @@
 #include "vulkandriver.h"
 #include <iostream>
 
-VInterface::VInterface() : m_pInstance(0), m_iDeviceCount(0)
+VulkanDriver::VulkanDriver() : m_pInstance(0), m_iDeviceCount(0)
 {
     init();
 }
 
-VInterface::~VInterface()
+VulkanDriver::~VulkanDriver()
 {
     reset();
 }
 
-void VInterface::init()
-{
+void VulkanDriver::init()
+{ 
     VkApplicationInfo appInfo;
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     appInfo.pApplicationName = "Hello Triangle";
@@ -39,10 +39,14 @@ void VInterface::init()
         std::cerr << "Error on vulkan instance creation : " << result << std::endl;
         exit(0);
     }  
+    
+    getPhysicalDevices();
 }
 
-void VInterface::getPhysicalDevices()
+void VulkanDriver::getPhysicalDevices()
 {
+    
+    //query and enumerate vulkan queues
     VkResult result;
     result = vkEnumeratePhysicalDevices(*m_pInstance, &m_iDeviceCount, 0);
     if(result != VK_SUCCESS)
@@ -62,9 +66,32 @@ void VInterface::getPhysicalDevices()
     }
     m_vPhysicalDevices.resize(m_iDeviceCount);
     result = vkEnumeratePhysicalDevices(*m_pInstance, &m_iDeviceCount, m_vPhysicalDevices.data());
+    if(result != VK_SUCCESS)
+    {
+        //some error on getting physical devices
+    }
+    
+    VkPhysicalDeviceProperties deviceProperties;
+    for (uint32_t i = 0; i < m_iDeviceCount; i++) {
+        vkGetPhysicalDeviceProperties(m_vPhysicalDevices[i], &deviceProperties);
+        printf("Driver Version: %d\n", deviceProperties.driverVersion);
+        printf("Device Name:    %s\n", deviceProperties.deviceName);
+        printf("Device Type:    %d\n", deviceProperties.deviceType);
+        printf("API Version:    %d.%d.%d\n",
+            // See note below regarding this:
+            (deviceProperties.apiVersion>>22)&0x3FF,
+            (deviceProperties.apiVersion>>12)&0x3FF,
+            (deviceProperties.apiVersion&0xFFF));
+    }
+    
+    for(int i = 0; i < m_iDeviceCount; ++i)
+    {
+        
+    }
+    
 }
 
-void VInterface::reset()
+void VulkanDriver::reset()
 {
     if(m_pInstance)
         vkDestroyInstance(*m_pInstance, 0);

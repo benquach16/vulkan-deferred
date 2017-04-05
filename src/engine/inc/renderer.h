@@ -9,5 +9,5 @@ public:
     ~Renderer();
     
 protected:
-    VInterface m_interface;
+    VulkanDriver m_driver;
 };
