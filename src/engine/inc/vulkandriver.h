@@ -3,6 +3,11 @@
 #include <vulkan/vulkan.h>
 #include <vector>
 
+struct SwapChain
+{
+    VkImage image;
+};
+
 class VulkanDriver
 {
 public:
