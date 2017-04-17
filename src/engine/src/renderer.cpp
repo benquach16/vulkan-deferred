@@ -9,3 +9,8 @@ Renderer::~Renderer()
 {
     
 }
+
+void Renderer::initializeRenderer(GLFWwindow* window)
+{
+    
+}

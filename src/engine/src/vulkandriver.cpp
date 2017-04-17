@@ -12,6 +12,11 @@ VulkanDriver::~VulkanDriver()
     reset();
 }
 
+void VulkanDriver::initializeDriver(GLFWwindow* window)
+{
+    //create window surface here
+}
+
 void VulkanDriver::init()
 { 
     VkApplicationInfo appInfo;
@@ -27,12 +32,18 @@ void VulkanDriver::init()
     instanceInfo.pNext = NULL;
     instanceInfo.flags = 0;
     instanceInfo.pApplicationInfo = &appInfo;
-    
-    
+    instanceInfo.enabledLayerCount = 0;
+    instanceInfo.ppEnabledLayerNames = NULL;
+    // Don't enable any extensions
+    instanceInfo.enabledExtensionCount = 0;
+    instanceInfo.ppEnabledExtensionNames = NULL;
+
     if(m_pInstance)
     {
-        std::cerr << "Attemping to allocate instance again";
+        std::cerr << "Instance already created" << std::endl;
+        reset();
     }
+    m_pInstance = new VkInstance;
     VkResult result = vkCreateInstance(&instanceInfo, 0, m_pInstance);
     
     if(result != VK_SUCCESS)
@@ -46,7 +57,6 @@ void VulkanDriver::init()
 
 void VulkanDriver::getPhysicalDevices()
 {
-    
     //query and enumerate vulkan queues
     VkResult result;
     result = vkEnumeratePhysicalDevices(*m_pInstance, &m_iDeviceCount, 0);
@@ -95,6 +105,9 @@ void VulkanDriver::getPhysicalDevices()
 void VulkanDriver::reset()
 {
     if(m_pInstance)
+    {
         vkDestroyInstance(*m_pInstance, 0);
+        delete m_pInstance;
+    }
     m_pInstance = 0;
 }

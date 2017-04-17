@@ -2,6 +2,7 @@
 
 #include <vulkan/vulkan.h>
 #include <vector>
+#include <GLFW/glfw3.h>
 
 struct SwapChain
 {
@@ -14,6 +15,7 @@ public:
     VulkanDriver();
     ~VulkanDriver();
     
+    void initializeDriver(GLFWwindow* window);
     void init();
     void getPhysicalDevices();
     void reset();
